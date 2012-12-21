@@ -134,6 +134,23 @@ void xio_dump_RX_queue_usart(void);
 //**** USB device configuration ****
 #define USB_INIT_bm (XIO_RDWR | XIO_BLOCK |  XIO_ECHO | XIO_XOFF | XIO_LINEMODE | XIO_BAUD_115200)
 
+
+#ifdef ALT_BOARD   //  Boston Andriod board
+
+#define USB_USART USARTF0					// USB usart
+#define USB_RX_ISR_vect USARTF0_RXC_vect 	// (RX) reception complete IRQ
+#define USB_TX_ISR_vect USARTF0_DRE_vect	// (TX) data register empty IRQ
+
+#define USB_PORT PORTF						// port where the USART is located
+#define USB_CTS_bp (5)						// CTS - bit position (pin is wired on board)
+#define USB_CTS_bm (1<<USB_CTS_bp)			// CTS - bit mask
+#define USB_RTS_bp (4)						// RTS - bit position (pin is wired on board)
+#define USB_RTS_bm (1<<USB_RTS_bp)			// RTS - bit mask
+#define USB_RX_bm (1<<2)					// RX pin bit mask
+#define USB_TX_bm (1<<3)					// TX pin bit mask
+
+#else   //  TinyG board
+
 #define USB_USART USARTC0					// USB usart
 #define USB_RX_ISR_vect USARTC0_RXC_vect 	// (RX) reception complete IRQ
 #define USB_TX_ISR_vect USARTC0_DRE_vect	// (TX) data register empty IRQ
@@ -145,6 +162,10 @@ void xio_dump_RX_queue_usart(void);
 #define USB_RTS_bm (1<<USB_RTS_bp)			// RTS - bit mask
 #define USB_RX_bm (1<<2)					// RX pin bit mask
 #define USB_TX_bm (1<<3)					// TX pin bit mask
+
+#endif
+
+
 
 #define USB_DIRCLR_bm (USB_CTS_bm | USB_RX_bm)	// input bits
 #define USB_DIRSET_bm (USB_RTS_bm | USB_TX_bm)	// output bits

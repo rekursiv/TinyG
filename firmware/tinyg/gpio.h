@@ -38,8 +38,25 @@
 #define GPIO1_INTLVL (PORT_INT0LVL_MED_gc|PORT_INT1LVL_MED_gc)
 //#define GPIO1_INTLVL (PORT_INT0LVL_LO_gc|PORT_INT1LVL_LO_gc)	// shouldn;t be low
 
+
+
 // port assignments for vectors
-#define X_MIN_ISR_vect PORTA_INT0_vect		// these line up with the gpoi assignments in system.h
+// these line up with the gpio assignments in system.h
+
+#ifdef ALT_BOARD   //  Boston Andriod board
+
+#define X_MIN_ISR_vect PORTA_INT0_vect
+#define Y_MIN_ISR_vect PORTC_INT0_vect
+#define Z_MIN_ISR_vect PORTD_INT0_vect
+#define A_MIN_ISR_vect PORTE_INT0_vect
+#define X_MAX_ISR_vect PORTA_INT1_vect
+#define Y_MAX_ISR_vect PORTC_INT1_vect
+#define Z_MAX_ISR_vect PORTD_INT1_vect
+#define A_MAX_ISR_vect PORTE_INT1_vect
+
+#else   //  TinyG board
+
+#define X_MIN_ISR_vect PORTA_INT0_vect		
 #define Y_MIN_ISR_vect PORTD_INT0_vect
 #define Z_MIN_ISR_vect PORTE_INT0_vect
 #define A_MIN_ISR_vect PORTF_INT0_vect
@@ -47,6 +64,8 @@
 #define Y_MAX_ISR_vect PORTD_INT1_vect
 #define Z_MAX_ISR_vect PORTE_INT1_vect
 #define A_MAX_ISR_vect PORTF_INT1_vect
+
+#endif
 
 // macros for finding the index into the switch table give the axis number
 #define MIN_SWITCH(axis) (axis*2)

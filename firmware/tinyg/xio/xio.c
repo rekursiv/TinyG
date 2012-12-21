@@ -88,7 +88,9 @@ extern struct controllerSingleton tg;	// needed by init() for default source
 void xio_init()
 {	
 	// call device inits
+#ifndef ALT_BOARD   //  Boston Andriod board does not have RS485
 	xio_init_rs485();
+#endif
 	xio_init_usb();
 	xio_init_pgm();						// program memory file device
 //	xio_init_eep();						// EEPROM memory file device

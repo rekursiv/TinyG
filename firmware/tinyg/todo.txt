@@ -1,0 +1,17 @@
+
+
+
+
+===  issues  ===
+
+the func gpio_init in gpio.c gets called many times on startup
+it seems designed to be called only once on init
+the problem seems to be the _set_sw func in config.c
+this func calls gpio_init();
+
+==========
+
+
+
+gpio.c
+** switch state change:   num={sw_num}   prev_level={sw.flag[sw_num]}

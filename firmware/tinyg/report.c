@@ -42,7 +42,7 @@
 #include "report.h"
 #include "settings.h"
 #include "xio/xio.h"
-#include "xmega/xmega_rtc.h"
+//#include "xmega/xmega_rtc.h"
 
 
 /*****************************************************************************
@@ -137,7 +137,7 @@ uint8_t rpt_status_report_callback() // called by controller dispatcher
 	}
 	rpt_populate_status_report();
 	cmd_print_list(TG_OK, TEXT_INLINE_PAIRS);	// will report in JSON or inline text modes
-	cm.status_report_counter = (cfg.status_report_interval / RTC_PERIOD);	// RTC fires every 10 ms
+	cm.status_report_counter = (cfg.status_report_interval / 10);	// RTC fires every 10 ms
 	return (TG_OK);
 }
 

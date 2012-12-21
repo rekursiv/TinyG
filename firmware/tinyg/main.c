@@ -41,7 +41,7 @@
 
 #include "xmega/xmega_interrupts.h"
 //#include "xmega/xmega_eeprom.h"	// uncomment for unit tests
-#include "xmega/xmega_rtc.h"
+#include "xmega/xmega_rtc.h"  //  FIXME
 #include "xio/xio.h"
 
 #include "tinyg.h"				// #1 There are some dependencies
@@ -159,6 +159,7 @@ int main(void)
 #ifdef __SLAVE_MODE
 	while(true){ tg_receiver();}	// this mode executes gcode blocks received via RS485
 #endif
+
 }
 
 #ifdef __DEBUG

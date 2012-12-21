@@ -48,12 +48,39 @@ void sys_init(void);					// master hardware init
 #undef F_CPU							// set for delays
 #define F_CPU 32000000UL				// should always precede <avr/delay.h>
 
-// Clock Crystal Config. Pick one:
-//#define __CLOCK_INTERNAL_32MHZ TRUE	// use internal oscillator
-//#define __CLOCK_EXTERNAL_8MHZ	TRUE	// uses PLL to provide 32 MHz system clock
-#define __CLOCK_EXTERNAL_16MHZ TRUE		// uses PLL to provide 32 MHz system clock
 
 /* Motor & switch port assignments */
+
+#ifdef ALT_BOARD   //  Boston Andriod board
+
+// Clock Crystal Config
+#define __CLOCK_INTERNAL_32MHZ TRUE	// use internal oscillator
+
+#define PORT_MOTOR_1		PORTA		
+#define PORT_MOTOR_2 		PORTC
+#define PORT_MOTOR_3		PORTD
+#define PORT_MOTOR_4		PORTE
+
+#define GPIO2_X_MIN_MAX		PORTA		// lines up with ISR vector assignments in gpio.h
+#define GPIO2_Y_MIN_MAX		PORTC
+#define GPIO2_Z_MIN_MAX		PORTD
+#define GPIO2_A_MIN_MAX		PORTE
+
+#define SW_PORT_X 0						
+#define SW_PORT_Y 1
+#define SW_PORT_Z 2
+#define SW_PORT_A 3
+
+// These next four must be changed when the PORT_MOTOR_* definitions change!
+#define PORTCFG_VP0MAP_PORT_MOTOR_1_gc PORTCFG_VP0MAP_PORTA_gc
+#define PORTCFG_VP1MAP_PORT_MOTOR_2_gc PORTCFG_VP1MAP_PORTC_gc
+#define PORTCFG_VP2MAP_PORT_MOTOR_3_gc PORTCFG_VP2MAP_PORTD_gc
+#define PORTCFG_VP3MAP_PORT_MOTOR_4_gc PORTCFG_VP3MAP_PORTE_gc
+
+#else   //  TinyG board
+
+// Clock Crystal Config
+#define __CLOCK_EXTERNAL_16MHZ TRUE		// uses PLL to provide 32 MHz system clock
 
 #define PORT_MOTOR_1		PORTA		// Note: motor and GPIO2 mappings are not the same
 #define PORT_MOTOR_2 		PORTF
@@ -75,6 +102,10 @@ void sys_init(void);					// master hardware init
 #define PORTCFG_VP1MAP_PORT_MOTOR_2_gc PORTCFG_VP1MAP_PORTF_gc
 #define PORTCFG_VP2MAP_PORT_MOTOR_3_gc PORTCFG_VP2MAP_PORTE_gc
 #define PORTCFG_VP3MAP_PORT_MOTOR_4_gc PORTCFG_VP3MAP_PORTD_gc
+
+
+#endif
+
 
 #define PORT_MOTOR_1_VPORT	VPORT0
 #define PORT_MOTOR_2_VPORT	VPORT1

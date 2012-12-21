@@ -1,5 +1,5 @@
 /*
- * xmega_rtc.h - general purpose real-time clock
+ * xmega_rtc32.h - general purpose real-time clock
  * Part of TinyG project
  *
  * Copyright (c) 2010 - 2012 Alden S. Hart Jr.
@@ -26,15 +26,15 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef xmega_rtc_h
-#define xmega_rtc_h
+#ifndef xmega_rtc32_h
+#define xmega_rtc32_h
 
 #define RTC_PERIOD 10							// interrupt on every 10 RTC ticks (~10 ms)
 
 // Interrupt level: pick one
-#define	RTC_COMPINTLVL RTC_COMPINTLVL_LO_gc;			// lo interrupt on compare
-//#define	RTC_COMPINTLVL RTC_COMPINTLVL_MED_gc;	// med interrupt on compare
-//#define	RTC_COMPINTLVL RTC_COMPINTLVL_HI_gc;		// hi interrupt on compare
+#define	RTC_COMPINTLVL RTC32_COMPINTLVL_LO_gc;			// lo interrupt on compare
+//#define	RTC_COMPINTLVL RTC32_COMPINTLVL_MED_gc;	// med interrupt on compare
+//#define	RTC_COMPINTLVL RTC32_COMPINTLVL_HI_gc;		// hi interrupt on compare
 
 struct rtClock {
 	volatile uint32_t clock_ticks;				// RTC tick counter

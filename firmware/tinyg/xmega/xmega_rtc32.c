@@ -1,5 +1,5 @@
 /*
- * xmega_rtc.c - real-time counter/clock
+ * xmega_rtc32.c - real-time counter/clock
  * Part of TinyG project
  *
  * Copyright (c) 2010 - 2012 Alden S. Hart Jr.
@@ -28,34 +28,66 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+//#include <avr/sysclk.h>
+
+#include <util/delay.h>	
 
 #include "../tinyg.h"
 #include "../gpio.h"
-#include "xmega_rtc.h"
+#include "xmega_rtc32.h"
 
-/* 
- * rtc_init() - initialize and start the clock
- *
- * This routine follows the code in app note AVR1314.
- */
 
+
+// adapted from Atmel ASF code:
+// src\asf\xmega\drivers\rtc32\rtc32.c
 void rtc_init()
 {
+	
+//	sysclk_enable_module(SYSCLK_PORT_GEN, SYSCLK_RTC);   // ??
+
+	// Enable access to VBAT
+//	VBAT.CTRL |= VBAT_ACCEN_bm;
+//	VBAT.CTRL |= VBAT_RESET_bm;
+//	VBAT.CTRL |= VBAT_XOSCFDEN_bm;
+	
+	/* This delay is needed to give the voltage in the backup system some
+	* time to stabilize before we turn on the oscillator. If we do not
+	* have this delay we may get a failure detection.
+	*/
+//	_delay_us(200);
+	
+//	VBAT.CTRL |= CLK_RTCSRC_RCOSC_gc;    /* 1kHz from internal 32kHz RC oscillator */
+//	while (!(VBAT.STATUS & VBAT_XOSCRDY_bm));
+
+
 	OSC.CTRL |= OSC_RC32KEN_bm;							// Turn on internal 32kHz.
-	do {} while ((OSC.STATUS & OSC_RC32KRDY_bm) == 0);	// Wait for 32kHz oscillator to stabilize.
-	do {} while (RTC.STATUS & RTC_SYNCBUSY_bm);			// Wait until RTC is not busy
+	while ((OSC.STATUS & OSC_RC32KRDY_bm) == 0);		// Wait for 32kHz oscillator to stabilize.
+	while (RTC32.SYNCCTRL & RTC32_SYNCBUSY_bm);			// Wait until RTC is not busy
 
 	CLK.RTCCTRL = CLK_RTCSRC_RCOSC_gc | CLK_RTCEN_bm;	// Set internal 32kHz osc as RTC clock source
-	do {} while (RTC.STATUS & RTC_SYNCBUSY_bm);			// Wait until RTC is not busy
+	while (RTC32.SYNCCTRL & RTC32_SYNCBUSY_bm);			// Wait until RTC is not busy
 
-	RTC.PER = RTC_PERIOD-1;								// overflow period
-	RTC.CNT = 0;
-	RTC.COMP = RTC_PERIOD-1;
-	RTC.CTRL = RTC_PRESCALER_DIV1_gc;					// no prescale (1x)
-	RTC.INTCTRL = RTC_COMPINTLVL;						// interrupt on compare
+	
+	// Disable the RTC32 module before setting it up
+	RTC32.CTRL = 0;
 
+	while (RTC32.SYNCCTRL & RTC32_SYNCBUSY_bm);
+
+	RTC32.PER = RTC_PERIOD-1;								// overflow period
+	RTC32.CNT = 0;
+	RTC32.COMP = RTC_PERIOD-1;
+
+	while (RTC32.SYNCCTRL & RTC32_SYNCBUSY_bm);
+
+	RTC32.INTCTRL = RTC_COMPINTLVL;						// interrupt on compare
+	RTC32.CTRL = RTC32_ENABLE_bm;
+
+	// Make sure it's sync'ed before return
+	while (RTC32.SYNCCTRL & RTC32_SYNCBUSY_bm);
+	
 	rtc.clock_ticks = 0;								//  default RTC clock counter
 }
+
 
 /* 
  * rtc ISR 
@@ -71,14 +103,14 @@ void rtc_init()
  * create a critical region for variables set or used by the callback:
  *
  *		#include "gpio.h"
- *		#include "xmega_rtc.h"
+ *		#include "xmega_rtc32.h"
  *
  *		RTC.INTCTRL = RTC_OVFINTLVL_OFF_gc;	// disable interrupt
  * 		blah blah blah critical region
  *		RTC.INTCTRL = RTC_OVFINTLVL_LO_gc;	// enable interrupt
  */
 
-ISR(RTC_COMP_vect)
+ISR(RTC32_COMP_vect)
 {
 	// callbacks to whatever you need to happen on each RTC tick go here:
 	gpio_switch_timer_callback();		// switch debouncing

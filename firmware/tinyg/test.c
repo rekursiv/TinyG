@@ -121,7 +121,7 @@ void tg_canned_startup()	// uncomment in tinyg.h if you want to run this
 //	xio_queue_RX_string_usb("{\"rx\":\"\"}\n");
 //	xio_queue_RX_string_usb("{\"x\":20}\n");
 //	xio_queue_RX_string_usb("{\"1\":{\"po\":\"\"}}\n");
-	xio_queue_RX_string_usb("{\"c\":\"\"}\n");
+//	xio_queue_RX_string_usb("{\"c\":\"\"}\n");
 
 //	xio_queue_RX_string_usb("{\"baud\":6}\n");
 //	xio_queue_RX_string_usb("{\"gc\":\"n20g0x1y1.1\"}\n");
@@ -130,7 +130,7 @@ void tg_canned_startup()	// uncomment in tinyg.h if you want to run this
 //	xio_queue_RX_string_usb("{\"gc\":\"g0x40\"}\n");
 //	xio_queue_RX_string_usb("{\"gc\":\"g0x0\"}\n");
 //	xio_queue_RX_string_usb("{\"qr\":\"\"}\n");
-	xio_queue_RX_string_usb("{\"sys\":\"\"}\n");
+//	xio_queue_RX_string_usb("{\"sys\":\"\"}\n");
 
 //	xio_queue_RX_string_usb("g0x2\n");
 //	xio_queue_RX_string_usb("g92a0\n");
@@ -174,7 +174,7 @@ void tg_canned_startup()	// uncomment in tinyg.h if you want to run this
 //	xio_queue_RX_string_usb("g0 x10\n");
 
 /* Run test file */
-//	xio_queue_RX_string_usb("$test=12\n");		// run test file
+	xio_queue_RX_string_usb("$test=3\n");		// run test file
 
 /* Other command sequences */
 //	xio_queue_RX_string_usb("H\n");				// show help file
@@ -298,7 +298,7 @@ void tg_canned_startup()	// uncomment in tinyg.h if you want to run this
 // If you want to run multi-line cases you need to set RX buffer to 1024 in xio_usart.h
 
 // JSON parser tests
-	xio_queue_RX_string_usb("{\"x\":\"\"}\n");		// retrieve a group
+//	xio_queue_RX_string_usb("{\"x\":\"\"}\n");		// retrieve a group
 //	xio_queue_RX_string_usb("{\"x\":{\"am\":2,\"vm\":601.000,\"fr\":1201.000,\"tm\":476.000,\"jm\":20000001.000,\"jd\":0.051,\"sm\":2,\"sv\":-502.000,\"lv\":101.000,\"lb\":2.001,\"zb\":1.001}}\n");
 
 //	xio_queue_RX_string_usb("{\"gc\":\"g0 x3 y4 z5.5 (comment line)\"}\n");
