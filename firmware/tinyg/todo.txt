@@ -15,3 +15,7 @@ this func calls gpio_init();
 
 gpio.c
 ** switch state change:   num={sw_num}   prev_level={sw.flag[sw_num]}
+
+** SWITCH   num: {sw_num}   was: {sw.flag[sw_num]}
+
+

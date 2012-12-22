@@ -64,15 +64,10 @@ void sys_init(void);					// master hardware init
 #define PORT_MOTOR_3		PORTD
 #define PORT_MOTOR_4		PORTE
 
-#define GPIO2_X_MIN_MAX		PORTA		// lines up with ISR vector assignments in gpio.h                 FIXME!!!!!!!!!!!!!!!!!
-#define GPIO2_Y_MIN_MAX		PORTC
-#define GPIO2_Z_MIN_MAX		PORTD
-#define GPIO2_A_MIN_MAX		PORTE
-
-#define SW_PORT_X 0						
-#define SW_PORT_Y 1
-#define SW_PORT_Z 2
-#define SW_PORT_A 3
+#define SWITCH_X 		MOTOR_1			// Switch axes mapped to motor numbers
+#define SWITCH_Y 		MOTOR_2
+#define SWITCH_Z 		MOTOR_3
+#define SWITCH_A 		MOTOR_4
 
 // These next four must be changed when the PORT_MOTOR_* definitions change!
 #define PORTCFG_VP0MAP_PORT_MOTOR_1_gc PORTCFG_VP0MAP_PORTA_gc
@@ -90,29 +85,20 @@ void sys_init(void);					// master hardware init
 #define PORT_MOTOR_3	PORTE
 #define PORT_MOTOR_4	PORTD
 
-//#define GPIO2_X_MIN_MAX		PORTA		// lines up with ISR vector assignments in gpio.h
-//#define GPIO2_Y_MIN_MAX		PORTD
-//#define GPIO2_Z_MIN_MAX		PORTE
-//#define GPIO2_A_MIN_MAX		PORTF
-//#define SW_PORT_X 0						// port mapping looked at the other way
-//#define SW_PORT_Y 3
-//#define SW_PORT_Z 2
-//#define SW_PORT_A 1
-
 #define SWITCH_X 		MOTOR_1			// Switch axes mapped to motor numbers
 #define SWITCH_Y 		MOTOR_4
 #define SWITCH_Z 		MOTOR_3
 #define SWITCH_A 		MOTOR_2
 
-#define PORT_OUT_X		PORTA			// v7 mapping - Output bits mapped to ports
-#define PORT_OUT_Y 		PORTF
-#define PORT_OUT_Z		PORTD
-#define PORT_OUT_A		PORTE
+//#define PORT_OUT_X		PORTA			// v7 mapping - Output bits mapped to ports   **not used??
+//#define PORT_OUT_Y 		PORTF
+//#define PORT_OUT_Z		PORTD
+//#define PORT_OUT_A		PORTE
 
-#define OUTPUT_X		MOTOR_1			// v7 mapping - Output bits mapped to ports
-#define OUTPUT_Y 		MOTOR_2
-#define OUTPUT_Z		MOTOR_4
-#define OUTPUT_A		MOTOR_3
+//#define OUTPUT_X		MOTOR_1			// v7 mapping - Output bits mapped to ports   **not used??
+//#define OUTPUT_Y 		MOTOR_2
+//#define OUTPUT_Z		MOTOR_4
+//#define OUTPUT_A		MOTOR_3
 /*
 #define OUTPUT_X		MOTOR_1			// v6 mapping - output bits mapped to ports
 #define OUTPUT_Y 		MOTOR_2

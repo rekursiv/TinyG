@@ -164,7 +164,7 @@ ISR(A_MAX_ISR_vect)	{ _isr_helper(SW_MAX_A);}
 
 static void _isr_helper(uint8_t sw_num)
 {
-	if (sw.lockout_count != 0) return;					// exit if you are in a debounce lockout
+//	if (sw.lockout_count != 0) return;					// exit if you are in a debounce lockout
 
 	if (sw.mode[sw_num] == SW_MODE_DISABLED) return;	// this is not supposed to happen
 
@@ -177,7 +177,7 @@ static void _isr_helper(uint8_t sw_num)
 		return;											
 	}
 	// must be a limit switch, so fire it.
-	sw.limit_thrown = true;								// triggers an emergency shutdown
+//	sw.limit_thrown = true;								// triggers an emergency shutdown
 }
 
 /*

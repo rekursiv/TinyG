@@ -29,7 +29,7 @@
 
 #include "xmega/xmega_interrupts.h"
 //#include "xmega/xmega_eeprom.h"	// uncomment for unit tests
-#include "xmega/xmega_rtc.h"  //  FIXME
+//#include "xmega/xmega_rtc.h"  //  FIXME
 #include "xio/xio.h"
 
 #include "tinyg.h"				// #1 There are some dependencies
@@ -66,7 +66,7 @@ int main(void)
 
 	// system and drivers
 	sys_init();			// system hardware setup 			- must be first
-	rtc_init();			// real time counter
+//	rtc_init();			// real time counter
 	xio_init();			// xmega io subsystem
 	sig_init();			// signal flags
 	st_init(); 			// stepper subsystem 				- must precede gpio_init()
